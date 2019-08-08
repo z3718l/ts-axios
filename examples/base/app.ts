@@ -80,6 +80,8 @@ import axios from '../../src/index'
 //     b: 2
 //   }
 // }) 
+
+// 返回json字符串
 axios({
   method: 'post',
   url: '/base/post',
@@ -91,16 +93,31 @@ axios({
     a: 1,
     c: 3
   }
+}).then((res) => {
+  console.log(res)
 })
 
-// 浏览器会自动为我们添加content-type，让服务端能够解析
-const paramsString = 'q=URLUtils.searchParams&topic=api'
-const searchParams = new URLSearchParams(paramsString)
+// responseType: 'json', 返回的就是json对象
 axios({
   method: 'post',
   url: '/base/post',
-  data: searchParams
+  responseType: 'json',
+  data: {
+    a: 15,
+    c: 33
+  }
+}).then((res) => {
+  console.log(res)
 })
+
+// 浏览器会自动为我们添加content-type，让服务端能够解析
+// const paramsString = 'q=URLUtils.searchParams&topic=api'
+// const searchParams = new URLSearchParams(paramsString)
+// axios({
+//   method: 'post',
+//   url: '/base/post',
+//   data: searchParams
+// })
 
 // const arr = new Int32Array([21, 31])
 // axios({

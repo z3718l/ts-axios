@@ -1,68 +1,110 @@
 import axios from '../../src/index'
 
 // 参数是数组
-axios({
-  method: 'get',
-  url: '/base/get',
-  params: {
-    foo: ['bar', 'baz']
-  }
-})
+// axios({
+//   method: 'get',
+//   url: '/base/get',
+//   params: {
+//     foo: ['bar', 'baz']
+//   }
+// })
 
 // 参数是对象
-axios({
-  method: 'get',
-  url: '/base/get',
-  params: {
-    foo: {
-      bar: 'baz'
-    }
-  }
-})
+// axios({
+//   method: 'get',
+//   url: '/base/get',
+//   params: {
+//     foo: {
+//       bar: 'baz'
+//     }
+//   }
+// })
 
 // 参数是日期
-const date = new Date()
-axios({
-  method: 'get',
-  url: '/base/get',
-  params: {
-    date
-  }
-})
+// const date = new Date()
+// axios({
+//   method: 'get',
+//   url: '/base/get',
+//   params: {
+//     date
+//   }
+// })
 
 // 特殊字符
-axios({
-  method: 'get',
-  url: '/base/get',
-  params: {
-    foo: '@:$, '
-  }
-})
+// axios({
+//   method: 'get',
+//   url: '/base/get',
+//   params: {
+//     foo: '@:$, '
+//   }
+// })
 
 // 有null
-axios({
-  method: 'get',
-  url: '/base/get',
-  params: {
-    foo: 'bar',
-    baz: null
-  }
-})
+// axios({
+//   method: 'get',
+//   url: '/base/get',
+//   params: {
+//     foo: 'bar',
+//     baz: null
+//   }
+// })
 
 // 带有hash的 #
+// axios({
+//   method: 'get',
+//   url: '/base/get#hash',
+//   params: {
+//     foo: 'bar'
+//   }
+// })
+
+// 已经有foo bar
+// axios({
+//   method: 'get',
+//   url: '/base/get?foo=bar',
+//   params: {
+//     foo: 'bar'
+//   }
+// })
+
+
+/**
+ * post请求
+ */
+
+// axios({
+//   method: 'post',
+//   url: '/base/post',
+//   data: {
+//     a: 1,
+//     b: 2
+//   }
+// }) 
 axios({
-  method: 'get',
-  url: '/base/get#hash',
-  params: {
-    foo: 'bar'
+  method: 'post',
+  url: '/base/post',
+  headers: {
+    'content-type': 'application/json',
+    'Accept': 'application/json, text/plain, */*'
+  },
+  data: {
+    a: 1,
+    c: 3
   }
 })
 
-// 已经有foo bar
+// 浏览器会自动为我们添加content-type，让服务端能够解析
+const paramsString = 'q=URLUtils.searchParams&topic=api'
+const searchParams = new URLSearchParams(paramsString)
 axios({
-  method: 'get',
-  url: '/base/get?foo=bar',
-  params: {
-    foo: 'bar'
-  }
+  method: 'post',
+  url: '/base/post',
+  data: searchParams
 })
+
+// const arr = new Int32Array([21, 31])
+// axios({
+//   method: 'post',
+//   url: '/base/buffer',
+//   data: arr
+// }) 

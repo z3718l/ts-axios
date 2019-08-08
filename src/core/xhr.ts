@@ -1,6 +1,6 @@
-import { AxiosRequestConfig, AxiosPromise, AxiosResponse } from './types'
-import { parseHeaders } from './helpers/headers'
-import { createError } from './helpers/error'
+import { AxiosRequestConfig, AxiosPromise, AxiosResponse } from '../types'
+import { parseHeaders } from '../helpers/headers'
+import { createError } from '../helpers/error'
 
 export default function xhr(config: AxiosRequestConfig): AxiosPromise {
   return new Promise((resolve, reject) => {
@@ -14,7 +14,7 @@ export default function xhr(config: AxiosRequestConfig): AxiosPromise {
       request.timeout = timeout
     }
 
-    request.open(method.toUpperCase(), url, true)
+    request.open(method.toUpperCase(), url!, true)
 
     request.onreadystatechange = function handleLoad() {
       // 4:代表相应成功
@@ -43,7 +43,7 @@ export default function xhr(config: AxiosRequestConfig): AxiosPromise {
     // 使用createError替换new Error
     request.onerror = function handleError() {
       // 网络错误处理
-      reject(createError('Network Error', config, null, request))
+      reject(createError('Network Error', config, null!, request))
     }
 
     request.ontimeout = function handleTimeout() {
@@ -69,7 +69,7 @@ export default function xhr(config: AxiosRequestConfig): AxiosPromise {
           createError(
             `Request failed width status code ${response.status}`,
             config,
-            null,
+            null!,
             request,
             response
           )

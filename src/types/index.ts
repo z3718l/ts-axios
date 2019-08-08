@@ -65,4 +65,6 @@ export interface Axios {
 // 混合对象（混合接口）
 export interface AxiosInatance extends Axios {
   (config: AxiosRequestConfig): AxiosPromise
+
+  (url: string, config?: AxiosRequestConfig): AxiosPromise
 }

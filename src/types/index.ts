@@ -1,4 +1,6 @@
 import { request } from 'https'
+import { timeouts } from 'retry'
+import { config } from 'shelljs'
 
 export type Method =
   | 'get'
@@ -23,6 +25,7 @@ export interface AxiosRequestConfig {
   params?: any
   headers?: any
   responseType?: XMLHttpRequestResponseType
+  timeout?: number
 }
 
 // 定义数据返回格式的接口（约束数据返回格式）
@@ -37,3 +40,12 @@ export interface AxiosResponse {
 
 // axios返回类型
 export interface AxiosPromise extends Promise<AxiosResponse> {}
+
+// 错误详情
+export interface AxiosError extends Error {
+  isAxiosError: boolean
+  config: AxiosRequestConfig
+  code?: string | number
+  request?: any
+  response?: AxiosResponse
+}

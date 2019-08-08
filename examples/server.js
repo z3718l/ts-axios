@@ -27,6 +27,7 @@ app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: true }))
 
 const router = express.Router()
+// get请求
 router.get('/simple/get', function (req, res) { 
   res.json({
     msg: 'Hello Word'
@@ -35,7 +36,7 @@ router.get('/simple/get', function (req, res) {
  router.get('/base/get', function(req, res) {
    res.json(req.query)
  })
-
+ //  post请求
  router.post('/base/post', function(req, res) {
    res.json(req.body)
  })
@@ -50,6 +51,26 @@ router.get('/simple/get', function (req, res) {
     let buf = Buffer.concat(msg)
     res.json(buf.toJSON())
   })
+ })
+
+ // error请求测试
+ router.get('/error/get', function(req, res) {
+   if(Math.random() > 0.5) {
+     res.json({
+       msg: 'hello word'
+     })
+   }else{
+     res.status(500)
+     res.end()
+   }
+ })
+
+ router.get('/error/timeout', function(req, res) {
+   setTimeout(() => {
+     res.json({
+       msg: 'hello word'
+     })
+   }, 3000)
  })
 
  app.use(router)

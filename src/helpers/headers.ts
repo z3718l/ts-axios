@@ -2,6 +2,7 @@
  * 加工请求头
  */
 import { isPlainObject } from './util'
+import { Method } from '../types'
 
 // Content-Type大小写转换
 // 注意参数和方法名不能重发
@@ -46,4 +47,17 @@ export function parseHeaders(headers: string): any {
     parsed[key] = val
   })
   return parsed
+}
+
+export function flattenHeaders(headers: any, method: Method): any {
+  if (!headers) {
+    return headers
+  }
+
+  const methodsToDelete = ['delete', 'get', 'head', 'options', 'post', 'put', 'patch', 'common']
+  methodsToDelete.forEach(method => {
+    delete headers[method]
+  })
+
+  return headers
 }

@@ -1,7 +1,3 @@
-import { request } from 'https'
-import { timeouts } from 'retry'
-import { config, head } from 'shelljs'
-
 export type Method =
   | 'get'
   | 'Get'
@@ -52,6 +48,11 @@ export interface AxiosError extends Error {
 
 // 定义接口类型
 export interface Axios {
+  interceptors: {
+    request: AxiosInterceptorManager<AxiosRequestConfig>
+    response: AxiosInterceptorManager<AxiosResponse>
+  }
+
   request<T = any>(config: AxiosRequestConfig): AxiosPromise<T>
   get<T = any>(url: string, config?: AxiosRequestConfig): AxiosPromise<T>
   delete<T = any>(url: string, config?: AxiosRequestConfig): AxiosPromise<T>
@@ -70,7 +71,7 @@ export interface AxiosInatance extends Axios {
 }
 
 export interface AxiosInterceptorManager<T> {
-  use(resolved: ResolvedFn<T>, rejected: RejectedFn): number
+  use(resolved: ResolvedFn<T>, rejected?: RejectedFn): number
 
   eject(id: number): void
 }

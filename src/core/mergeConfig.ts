@@ -30,8 +30,8 @@ stratKeysFromVal2.forEach(key => {
   strats[key] = fromVal2Strat
 })
 
-const stratKeysDeepMerage = ['headers']
-stratKeysDeepMerage.forEach(key => {
+const stratKeysDeepMerge = ['headers']
+stratKeysDeepMerge.forEach(key => {
   strats[key] = deepMergeStrat
 })
 
@@ -47,16 +47,16 @@ export default function merageConfig(
 
   // 分别遍历两个对象中的属性，然后调用不同的合并方法进行对象的合并
   for (let key in config2) {
-    merageField(key)
+    mergeField(key)
   }
 
   for (let key in config1) {
     if (!config2[key]) {
-      merageField(key)
+      mergeField(key)
     }
   }
 
-  function merageField(key: string): void {
+  function mergeField(key: string): void {
     const strat = strats[key] || defaultStrat
     config[key] = strat(config1[key], config2![key])
   }

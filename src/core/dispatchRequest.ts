@@ -17,7 +17,6 @@ function processConfig(config: AxiosRequestConfig): void {
   config.url = transformURL(config)
   config.headers = transformHeaders(config) // 先处理headers 再处理data
   config.data = transformRequestData(config)
-
   config.headers = flattenHeaders(config.headers, config.method!)
 }
 // 对config的url做处理

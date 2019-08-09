@@ -1,8 +1,9 @@
 import { AxiosRequestConfig, AxiosPromise, AxiosResponse } from '../types'
 import xhr from './xhr'
 import { buildURL } from '../helpers/url'
-import { transformRequest, transformResponse } from '../helpers/data'
+// import { transformRequest, transformResponse } from '../helpers/data'
 import { processHeaders, flattenHeaders } from '../helpers/headers'
+import transform from './transform'
 
 // 定义一个axios方法
 export default function dispatchRequest(config: AxiosRequestConfig): AxiosPromise {
@@ -15,8 +16,9 @@ export default function dispatchRequest(config: AxiosRequestConfig): AxiosPromis
 // 发送请求之前对config做处理
 function processConfig(config: AxiosRequestConfig): void {
   config.url = transformURL(config)
-  config.headers = transformHeaders(config) // 先处理headers 再处理data
-  config.data = transformRequestData(config)
+  // config.headers = transformHeaders(config) // 先处理headers 再处理data
+  // config.data = transformRequestData(config)
+  config.data = transform(config.data, config.headers, config.transformRequest)
   config.headers = flattenHeaders(config.headers, config.method!)
 }
 // 对config的url做处理
@@ -26,18 +28,19 @@ function transformURL(config: AxiosRequestConfig): string {
   return buildURL(url!, params)
 }
 
-function transformRequestData(config: AxiosRequestConfig): any {
-  return transformRequest(config.data)
-}
+// function transformRequestData(config: AxiosRequestConfig): any {
+//   return transformRequest(config.data)
+// }
 
 // 处理headers
 // 查找错误打印每一个数据，并打断点，看看在哪里数据发生了变化
-function transformHeaders(config: AxiosRequestConfig): any {
-  const { headers = {}, data } = config
-  return processHeaders(headers, data)
-}
+// function transformHeaders(config: AxiosRequestConfig): any {
+//   const { headers = {}, data } = config
+//   return processHeaders(headers, data)
+// }
 
 function transformResponseData(res: AxiosResponse): AxiosResponse {
-  res.data = transformResponse(res.data)
+  // res.data = transformResponse(res.data)
+  res.data = transform(res.data, res.headers, res.config.transformRequest)
   return res
 }

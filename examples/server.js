@@ -126,6 +126,7 @@ function registerInterceptorRouter() {
 }
 function registerConfigRouter() {
   router.post('/config/post', function(req, res) {
+    console.log(req.body)
     res.json(req.body)
   })
 }

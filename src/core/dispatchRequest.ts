@@ -41,6 +41,6 @@ function transformURL(config: AxiosRequestConfig): string {
 
 function transformResponseData(res: AxiosResponse): AxiosResponse {
   // res.data = transformResponse(res.data)
-  res.data = transform(res.data, res.headers, res.config.transformRequest)
+  res.data = transform(res.data, res.headers, res.config.transformResponse)
   return res
 }
